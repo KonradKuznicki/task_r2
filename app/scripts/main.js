@@ -1,1 +1,6 @@
-console.log('\'Allo \'Allo!');
+;(function ($, App) {
+  'use strict';
+
+  new App($('#body'));
+
+})(jQuery, window.App);

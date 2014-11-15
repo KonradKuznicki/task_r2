@@ -24,6 +24,17 @@ gulp.task('scripts', function () {
         .pipe($.size());
 });
 
+// Basic usage
+// gulp.task('scripts', function() {
+//     // Single entry point to browserify
+//     return gulp.src(['app/scripts/main.js'])
+//         .pipe($.browserify({
+//             insertGlobals : true,
+//             debug : true
+//         }))
+//         .pipe(gulp.dest('./tmp/scripts'))
+// });
+
 gulp.task('html', ['styles', 'scripts'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
@@ -80,8 +91,8 @@ gulp.task('connect', function () {
     var connect = require('connect');
     var app = connect()
         .use(require('connect-livereload')({ port: 35729 }))
-        .use(connect.static('app'))
         .use(connect.static('.tmp'))
+        .use(connect.static('app'))
         .use(connect.directory('app'));
 
     require('http').createServer(app)
@@ -113,7 +124,7 @@ gulp.task('wiredep', function () {
         .pipe(gulp.dest('app'));
 });
 
-gulp.task('watch', ['connect', 'serve'], function () {
+gulp.task('watch', ['scripts', 'connect', 'serve'], function () {
     var server = $.livereload();
 
     // watch for changes
@@ -122,6 +133,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
         'app/*.html',
         '.tmp/styles/**/*.css',
         'app/scripts/**/*.js',
+        '.tmp/scripts/**/*.js',
         'app/images/**/*'
     ]).on('change', function (file) {
         server.changed(file.path);
