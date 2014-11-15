@@ -11,13 +11,13 @@
 
   List.prototype.add = function (item) {
     var id = this.subject.push(item) - 1;
-    this.notify("add", id, item);
+    this.notify('add', id, item);
   };
 
   List.prototype.remove = function (id) {
     var item = this.subject[id];
     this.subject.splice(id, 1);
-    this.notify("remove", id, item);
+    this.notify('remove', id, item);
   };
 
   List.prototype.notify = function () {

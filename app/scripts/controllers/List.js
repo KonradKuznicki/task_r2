@@ -15,7 +15,7 @@
 
   List.prototype.render = function () {
 
-    var $items, items, item;
+    var $items, items;
 
     this.$root.empty();
     $items = $(App.templates.list());
